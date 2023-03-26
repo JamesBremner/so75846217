@@ -1,8 +1,8 @@
 #source file search paths
-VPATH = ./src 
+VPATH = ./src ../pathfinder/src
 
 	# compiler include search paths
-INCS = -I./include \
+INCS = -I../pathfinder/src \
 	-I../windex/include \
 	-I../raven-set \
 	-I../../code_ext/boost/boost1_78 
@@ -25,7 +25,9 @@ CCflags = -std=c++17 $(OPT) -D_mingw_
 
 # sources
 OBJ_starter = \
-	$(ODIR)/main.o 
+	$(ODIR)/main.o \
+	$(ODIR)/readfile.o \
+	$(ODIR)/cGraph.o 
 
 ### COMPILE
 

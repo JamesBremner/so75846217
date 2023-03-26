@@ -4,31 +4,17 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <wex.h>
-#include "cStarterGUI.h"
+#include "cGraph.h"
 
-class cGUI : public cStarterGUI
-{
-public:
-    cGUI()
-        : cStarterGUI(
-              "Starter",
-              {50, 50, 1000, 500}),
-          lb(wex::maker::make < wex::label >(fm))
-    {
-        lb.move(50, 50, 100, 30);
-        lb.text("Hello World");
-
-        show();
-        run();
-    }
-
-private:
-    wex::label &lb;
-};
+void readfile(
+    raven::graph::cGraph &g,
+    const std::string &fname);
 
 main()
 {
-    cGUI theGUI;
+
+    raven::graph::cGraph g;
+    readfile(g, "../dat/input.txt");
+
     return 0;
 }

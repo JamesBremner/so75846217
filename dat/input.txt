@@ -1,0 +1,7 @@
+VP food,population
+EP maxspeed
+V A chinese, 1000
+V B italian, 10000
+V C -,-
+E 1 C A 50
+E 2 C B 100
