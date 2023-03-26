@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iostream>
 #include "cGraph.h"
+#include "so758462167.h"
 
 static std::vector<std::string> tokenize(const std::string &line)
 {
@@ -14,16 +15,16 @@ static std::vector<std::string> tokenize(const std::string &line)
 }
 
 void readfile(
-    raven::graph::cGraph &g,
+    so758462167& spec,
     const std::string &fname)
 {
-    g.clear();
+    spec.g.clear();
     std::ifstream ifs(fname);
     if (!ifs.is_open())
         throw std::runtime_error(
             "Cannot open input file");
 
-    std::string vertexPropNames, edgePropNames;
+
 
     std::string linetype, list;
     while (ifs.good())
@@ -31,26 +32,31 @@ void readfile(
         ifs >> linetype;
         if (linetype.find("VP") != -1)
         {
-            ifs >> vertexPropNames;
-            std::cout << vertexPropNames << "\n";
+            ifs >> spec.vertexPropNames;
         }
         else if (linetype.find("EP") != -1)
         {
-            ifs >> edgePropNames;
-            std::cout << edgePropNames << "\n";
+            ifs >> spec.edgePropNames;
         }
         else if (linetype.find("V") != -1) {
             std::string name,propValues;
             ifs >> name >> propValues;
-            int vi = g.add( name );
-            g.wVertexAttr(vi,tokenize(propValues));
+            int vi = spec.g.add( name );
+            spec.g.wVertexAttr(vi,tokenize(propValues));
         }
         else if (linetype.find("E") != -1) {
             std::string name, src, dst, propValues;
             ifs >> name >> src >> dst >> propValues;
-            int ie = g.add( src,dst );
-            g.wEdgeAttr(ie,tokenize(propValues));
+            int ie = spec.g.add( src,dst );
+            spec.g.wEdgeAttr(ie,tokenize(propValues));
         }
+        else if (linetype.find("S") != -1) {
+            ifs >> spec.start;
+        }
+        else if (linetype.find("D") != -1) {
+            ifs >> spec.dest;
+        }
+
     }
-    std::cout << g.text();
+    //std::cout << spec.g.text();
 }
